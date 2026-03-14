@@ -18,6 +18,9 @@ target_include_directories(Whirlpool PUBLIC
     Whirlpool/Math/Vector2
     Whirlpool/Math/FRect
     Whirlpool/Math/Point
+    Whirlpool/Input
+    Whirlpool/Graphics/SimpleRender2D
+    Whirlpool/Graphics/Color
 )
 
 include_directories(${CMAKE_SOURCE_DIR}/SDL3/include)

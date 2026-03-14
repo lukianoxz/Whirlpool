@@ -2,22 +2,22 @@
 #define WHIRLPOOL_SIMPLE_WINDOW_HPP
 
 #include <string>
+#include <Rgba.hpp>
 #include <SDL3/SDL.h>
 
 namespace Whirlpool {
     struct SimpleWindow {
+        friend struct SimpleRender2D;
     private:
         bool WindowInit = false;
-    public:
-        int SizeX, SizeY;
-        std::string WindowName;
-
+    protected:
         SDL_Window* Window;
         SDL_Renderer* Render;
         SDL_AudioStream* Audio;
-        SDL_Event Event;
-
         SDL_AudioSpec AudioSpec;
+    public:
+        int SizeX, SizeY;
+        std::string WindowName;
 
         SimpleWindow(int WindowSizeX, int WindowSizeY, std::string WindowName):
             SizeX(WindowSizeX),
@@ -43,12 +43,18 @@ namespace Whirlpool {
             WindowInit = true;
         }
 
-        template <typename Function>
+        void SetDrawColor(Rgba Color = {0, 0, 0, 255}){
+            Color.Clamp();
+            SDL_SetRenderDrawColor(Render, (Uint8)Color.R, (Uint8)Color.G, (Uint8)Color.B, (Uint8)Color.A);
+        }
 
-        void Input(Function CallBack){
-            while(SDL_PollEvent(&Event)){
-                CallBack(Event);
-            }
+        void Clear(Rgba Color = {0, 0, 0, 255}){
+            SetDrawColor(Color);
+            SDL_RenderClear(Render);
+        }
+
+        void Present(){
+            SDL_RenderPresent(Render);
         }
 
         ~SimpleWindow(){

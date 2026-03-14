@@ -5,5 +5,8 @@
 #include <Vector2.hpp>
 #include <FRect.hpp>
 #include <Point.hpp>
+#include <InputHandler.hpp>
+#include <Rgba.hpp>
+#include <SimpleRender2D.hpp>
 
 #endif
