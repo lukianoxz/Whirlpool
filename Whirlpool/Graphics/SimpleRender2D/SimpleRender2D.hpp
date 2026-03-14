@@ -14,8 +14,7 @@ namespace Whirlpool {
             Window(Window)
         {}
 
-        void DrawRect(FRect Rect, Rgba Color = {0, 0, 0, 255}){
-            Window.SetDrawColor(Color);
+        void DrawRect(FRect Rect){
             SDL_FRect SDLRect = {Rect.Min.X, Rect.Min.Y, Rect.Max.X - Rect.Min.X, Rect.Max.Y - Rect.Min.Y};
             SDL_RenderFillRect(Window.Render, &SDLRect);
         }
