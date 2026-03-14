@@ -1,0 +1,9 @@
+#Diretorios
+
+SDL3/
+.vscode/
+Build/
+
+#Arquivos
+
+*.exe
