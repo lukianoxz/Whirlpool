@@ -6,7 +6,6 @@ int main(){
     Whirlpool::SimpleRender2D Render(Window);
     Whirlpool::InputHandler InputHandler;
 
-    Window.Init();
     bool Loop = true;
 
     while(Loop){
@@ -15,10 +14,7 @@ int main(){
         });
 
         Window.Clear();
-        Window.SetDrawColor({255, 0, 0, 255});
-
-        Render.DrawRect({{200.0f, 100.0f}, {700.0f, 500.0f}});
-
+        Render.DrawRect({{200.0f, 100.0f}, {700.0f, 500.0f}}, {255, 0, 0, 255});
         Window.Present();
     }
 

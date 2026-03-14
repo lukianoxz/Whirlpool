@@ -9,25 +9,7 @@ namespace Whirlpool {
     struct SimpleWindow {
         friend struct SimpleRender2D;
     private:
-        bool WindowInit = false;
-    protected:
-        SDL_Window* Window;
-        SDL_Renderer* Render;
-        SDL_AudioStream* Audio;
-        SDL_AudioSpec AudioSpec;
-    public:
-        int SizeX, SizeY;
-        std::string WindowName;
-
-        SimpleWindow(int WindowSizeX, int WindowSizeY, std::string WindowName):
-            SizeX(WindowSizeX),
-            SizeY(WindowSizeY),
-            WindowName(WindowName)
-        {}
-
-        void Init(SDL_AudioSpec AudioSpec = {SDL_AUDIO_F32, 1, 44100}){
-            this->AudioSpec = AudioSpec;
-
+        void Init(){
             if (!SDL_Init(SDL_INIT_VIDEO | SDL_INIT_AUDIO)){
                 SDL_ShowSimpleMessageBox(SDL_MESSAGEBOX_ERROR, "[SimpleWindow]: Initialization failure :(", SDL_GetError(), NULL);
                 exit(1);
@@ -39,14 +21,27 @@ namespace Whirlpool {
             SDL_AudioDeviceID DevId = SDL_OpenAudioDevice(SDL_AUDIO_DEVICE_DEFAULT_PLAYBACK, &this->AudioSpec);
             SDL_BindAudioStream(DevId, Audio);
             SDL_ResumeAudioDevice(DevId);
-            
-            WindowInit = true;
         }
+    protected:
+        SDL_Window* Window;
+        SDL_Renderer* Render;
+        SDL_AudioStream* Audio;
+        SDL_AudioSpec AudioSpec;
 
         void SetDrawColor(Rgba Color = {0, 0, 0, 255}){
             Color.Clamp();
             SDL_SetRenderDrawColor(Render, (Uint8)Color.R, (Uint8)Color.G, (Uint8)Color.B, (Uint8)Color.A);
         }
+    public:
+        int SizeX, SizeY;
+        std::string WindowName;
+
+        SimpleWindow(int WindowSizeX, int WindowSizeY, std::string WindowName, SDL_AudioSpec AudioSpec = {SDL_AUDIO_F32, 1, 44100}):
+            SizeX(WindowSizeX),
+            SizeY(WindowSizeY),
+            WindowName(WindowName),
+            AudioSpec(AudioSpec)
+        {Init();}
 
         void Clear(Rgba Color = {0, 0, 0, 255}){
             SetDrawColor(Color);
@@ -58,12 +53,10 @@ namespace Whirlpool {
         }
 
         ~SimpleWindow(){
-            if (WindowInit){
-                SDL_DestroyRenderer(Render);
-                SDL_DestroyAudioStream(Audio);
-                SDL_DestroyWindow(Window);
-                SDL_Quit();
-            }
+            SDL_DestroyRenderer(Render);
+            SDL_DestroyAudioStream(Audio);
+            SDL_DestroyWindow(Window);
+            SDL_Quit();
         }
     };
 }
