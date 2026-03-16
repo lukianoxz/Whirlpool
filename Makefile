@@ -1,13 +1,19 @@
 BUILD_DIR = Build
 
+ifeq ($(OS), Windows_NT)
+	EXECUTABLE = .exe
+else
+	EXECUTABLE = 
+endif
+
 all: clean configure run
 
 configure:
-	mkdir -p $(BUILD_DIR)
-	cd $(BUILD_DIR) && cmake -G "MinGW Makefiles" -DBUILD_EXAMPLES=ON .. && mingw32-make
+	cmake -B $(BUILD_DIR) -DBUILD_EXAMPLES=ON .
+	cmake --build $(BUILD_DIR)
 
 clean:
-	rm -rf $(BUILD_DIR)
+	cmake -E rm -rf $(BUILD_DIR)
 
 run:
-	$(BUILD_DIR)/Examples/Example.exe
+	$(BUILD_DIR)/Examples/Example$(EXECUTABLE)

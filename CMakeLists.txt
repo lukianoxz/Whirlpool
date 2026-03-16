@@ -23,11 +23,14 @@ target_include_directories(Whirlpool PUBLIC
     Whirlpool/Graphics/Color
 )
 
-include_directories(${CMAKE_SOURCE_DIR}/SDL3/include)
+if (WIN32)
+    include_directories(${CMAKE_SOURCE_DIR}/SDL3/include)
+    link_directories(${CMAKE_SOURCE_DIR}/SDL3/lib)
+else()
+    find_package(SDL3 REQUIRED)
+endif()
 
-link_directories(${CMAKE_SOURCE_DIR}/SDL3/lib)
-
-target_link_libraries(Whirlpool PUBLIC SDL3)
+target_link_libraries(Whirlpool PUBLIC SDL3::SDL3)
 
 option(BUILD_EXAMPLES "Compile examples" OFF)
 if(BUILD_EXAMPLES)
