@@ -1,4 +1,4 @@
-add_executable(Example FirstWindow.cpp)
+add_executable(Example Music.cpp)
 
 if (WIN32)
     set_target_properties(Example PROPERTIES WIN32_EXECUTABLE ON)

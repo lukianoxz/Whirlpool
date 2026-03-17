@@ -21,6 +21,7 @@ target_include_directories(Whirlpool PUBLIC
     Whirlpool/Input
     Whirlpool/Graphics/SimpleRender2D
     Whirlpool/Graphics/Color
+    Whirlpool/Sound/
 )
 
 if (WIN32)

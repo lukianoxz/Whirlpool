@@ -8,6 +8,7 @@
 namespace Whirlpool {
     struct SimpleWindow {
         friend struct SimpleRender2D;
+        friend struct SimpleSound;
     private:
         void Init(){
             if (!SDL_Init(SDL_INIT_VIDEO | SDL_INIT_AUDIO)){

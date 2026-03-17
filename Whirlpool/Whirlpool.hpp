@@ -8,5 +8,6 @@
 #include <InputHandler.hpp>
 #include <Rgba.hpp>
 #include <SimpleRender2D.hpp>
+#include <SimpleSound.hpp>
 
 #endif
